@@ -41,36 +41,51 @@ namespace Clalit_Zeev.Services
 
         private void ReturnNegativeChangeJson(string dataObjects)
         {
-            var xmldoc = new XmlDocument();
-            xmldoc.LoadXml(dataObjects);
-
-            var elem = xmldoc?.DocumentElement?.ChildNodes[0];
-            var fromXml = JsonConvert.SerializeXmlNode(elem);
-            var fromJson = JsonConvert.DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
-
-            foreach(var node in fromJson?.ExchangeRates.ExchangeRateResponseDTO)
+            try
             {
-                if (node.CurrentChange < 0)
-                {
-                    results.Add(node);
-                }
-            }
+                var xmldoc = new XmlDocument();
+                xmldoc.LoadXml(dataObjects);
 
-            //results.AddRange(from node in fromJson?.ExchangeRates?.ExchangeRateResponseDTO
-            //                 where node.CurrentChange < 0
-            //                 select node);
+                var elem = xmldoc?.DocumentElement?.ChildNodes[0];
+                var fromXml = JsonConvert.SerializeXmlNode(elem);
+                var fromJson = JsonConvert.DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
+
+                //foreach(var node in fromJson?.ExchangeRates.ExchangeRateResponseDTO)
+                //{
+                //    if (node.CurrentChange < 0)
+                //    {
+                //        results.Add(node);
+                //    }
+                //}
+
+                results.AddRange(from node in fromJson?.ExchangeRates?.ExchangeRateResponseDTO
+                                 where node.CurrentChange < 0
+                                 select node);
+
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private HttpClient InitializeClient(string url)
         {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(url);
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(url);
 
-            // Add headers for JSON format.
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("text/xml"));
+                // Add headers for JSON format.
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("text/xml"));
 
-            return client;
+                return client;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

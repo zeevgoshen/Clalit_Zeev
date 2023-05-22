@@ -4,9 +4,10 @@ import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import './custom.css';
 import Home from "./components/Home";
+import { HOME_TITLE } from "./constants/messages.js"
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = HOME_TITLE;
 
   render() {
     return (

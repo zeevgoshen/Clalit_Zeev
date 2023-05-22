@@ -3,7 +3,7 @@ import ExchangeRates from "./ExchangeRates";
 import { HOME_TITLE } from "../constants/messages.js"
 
 export class Home extends Component {
-    static displayName = Home.name;
+    static displayName = HOME_TITLE;
 
 
     constructor(props) {
@@ -59,8 +59,8 @@ export class Home extends Component {
 
         return (
             <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
+                <h1 id="tabelLabel">Negative Exchange Rates</h1>
+                {/*<p>This component demonstrates fetching data from the server.</p>*/}
                 {contents}
             </div>
         );
