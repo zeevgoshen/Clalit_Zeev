@@ -1,0 +1,42 @@
+﻿﻿body {
+}
+
+.suggestionList {
+    /*padding: 10px;*/
+    height: auto;
+    width: auto;
+}
+
+.suggestionLabels {
+    margin: 20px 0px 20px 0px;
+    font-size: 18px;
+}
+
+.selectedValue {
+    height: 40px;
+    width: 300px;
+    margin-bottom: 40px;
+}
+
+.autoCompleteInput {
+    border-radius: 25px;
+}
+
+.main_content {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    margin-top: 40px;
+    height: auto;
+    width: auto;
+}
+
+.mainTitle {
+    font-size: 28px;
+}
+
+.secondaryTitle {
+    font-size: 22px;
+    background-color: aquamarine;
+    text-align: left;
+}
