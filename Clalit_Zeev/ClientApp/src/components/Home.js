@@ -27,10 +27,10 @@ export class Home extends Component {
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>CurrentChange</th>
-                        <th>CurrentExchangeRate</th>
+                        <th>Current Change</th>
+                        <th>Current Exchange Rate</th>
                         <th>Key</th>
-                        <th>LastUpdate</th>
+                        <th>Last Update</th>
                         <th>Unit</th>
                     </tr>
                 </thead>

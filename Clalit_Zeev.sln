@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clalit_Zeev", "Clalit_Zeev\Clalit_Zeev.csproj", "{33907459-F07C-4F6D-81E0-89FF4C8CC8E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clalit_Zeev.Tests", "Clalit_Zeev.Tests\Clalit_Zeev.Tests.csproj", "{DFEDF740-81E2-4F9D-8CC7-DC175075B339}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{33907459-F07C-4F6D-81E0-89FF4C8CC8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33907459-F07C-4F6D-81E0-89FF4C8CC8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33907459-F07C-4F6D-81E0-89FF4C8CC8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEDF740-81E2-4F9D-8CC7-DC175075B339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEDF740-81E2-4F9D-8CC7-DC175075B339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEDF740-81E2-4F9D-8CC7-DC175075B339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEDF740-81E2-4F9D-8CC7-DC175075B339}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
