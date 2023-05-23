@@ -11,16 +11,16 @@ namespace Clalit_Zeev.Services
     public class ExchangeRatesService : IExchangeRatesService
     {
         private string url = "https://boi.org.il/PublicApi/GetExchangeRates?asXML=true";
-        private List<ExchangeRateResponseDTO> results = new List<ExchangeRateResponseDTO>();
 
         public async Task<IEnumerable<ExchangeRateResponseDTO>?> GetExchangeRatesAsync()
         {
             try
             {
-                var client = CreateHttpClient.InitializeClient(url);
+                var httpClient = CreateHttpClient.InitializeClient(url);
 
                 // Get data response
-                var response = await client.GetAsync(url);
+                var response = await httpClient.GetAsync(url);
+                var filteredResults = new List<ExchangeRateResponseDTO>();
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -29,21 +29,23 @@ namespace Clalit_Zeev.Services
 
                     if (dataObjects != null)
                     {
-                        ReturnNegativeChangeJson(dataObjects);
+                        filteredResults = ReturnNegativeChangeJson(dataObjects);
                     }
                 }
-                return results;
+                return filteredResults;
             }
             catch (Exception)
             {
-                return null;
+                return new List<ExchangeRateResponseDTO>();
             }
         }
 
-        private void ReturnNegativeChangeJson(string dataObjects)
+        public List<ExchangeRateResponseDTO> ReturnNegativeChangeJson(
+            string dataObjects)
         {
             try
             {
+                var filteredResults = new List<ExchangeRateResponseDTO>();
                 var xmldoc = new XmlDocument();
                 xmldoc.LoadXml(dataObjects);
 
@@ -59,13 +61,15 @@ namespace Clalit_Zeev.Services
                 //    }
                 //}
 
-                results.AddRange(from node in fromJson?.ExchangeRates?.ExchangeRateResponseDTO
+                filteredResults.AddRange(from node in fromJson?.ExchangeRates?.ExchangeRateResponseDTO
                                  where node.CurrentChange < 0
                                  select node);
 
+                return filteredResults;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                return new List<ExchangeRateResponseDTO>();
             }
         }
     }

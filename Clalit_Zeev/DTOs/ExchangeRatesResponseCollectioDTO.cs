@@ -7,8 +7,8 @@
 
     public class ExchangeRateResponseDTO
     {
-        public float CurrentChange { get; set; }
-        public float CurrentExchangeRate { get; set; }
+        public double CurrentChange { get; set; }
+        public double CurrentExchangeRate { get; set; }
         public string? Key { get; set; }
         public string? LastUpdate { get; set; }
         public string? Unit { get; set; }

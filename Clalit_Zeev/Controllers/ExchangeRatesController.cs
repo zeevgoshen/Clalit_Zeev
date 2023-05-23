@@ -14,16 +14,18 @@ namespace Clalit_Zeev.Controllers
         public ExchangeRatesController(
             IExchangeRatesService service)
         {
-
             this.service = service;
         }
 
         [HttpGet(Name = "ExchangeRates")]
         public async Task<IEnumerable<ExchangeRateResponseDTO>> GetExchangeRates()
         {
-            var x = await service.GetExchangeRatesAsync();
-            return new List<ExchangeRateResponseDTO>(x);
-            //.ToArray();
+            var negativeRates = await service.GetExchangeRatesAsync();
+            if (negativeRates == null)
+            {
+                negativeRates = new List<ExchangeRateResponseDTO>();
+            }
+            return new List<ExchangeRateResponseDTO>(negativeRates);
         }
     }
 }
