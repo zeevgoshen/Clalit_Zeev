@@ -51,19 +51,20 @@ namespace Clalit_Zeev.Services
 
                 var elem = xmldoc?.DocumentElement?.ChildNodes[0];
                 var fromXml = JsonConvert.SerializeXmlNode(elem);
-                var fromJson = JsonConvert.DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
+                var fromJson = JsonConvert.
+                    DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
 
-                //foreach(var node in fromJson?.ExchangeRates.ExchangeRateResponseDTO)
-                //{
-                //    if (node.CurrentChange < 0)
-                //    {
-                //        results.Add(node);
-                //    }
-                //}
-
-                filteredResults.AddRange(from node in fromJson?.ExchangeRates?.ExchangeRateResponseDTO
-                                 where node.CurrentChange < 0
-                                 select node);
+                if (fromJson != null &&
+                    fromJson.ExchangeRates != null)
+                {
+                    filteredResults.AddRange(
+                        from node in 
+                            fromJson?.
+                            ExchangeRates?.
+                            ExchangeRateResponseDTO
+                            where node.CurrentChange < 0
+                            select node);
+                }
 
                 return filteredResults;
             }

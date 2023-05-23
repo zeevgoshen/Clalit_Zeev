@@ -1,10 +1,15 @@
-﻿namespace Clalit_Zeev.DTOs
+﻿using Newtonsoft.Json;
+
+namespace Clalit_Zeev.DTOs
 {
+    
     public class ExchangeRate
     {
+        
         public IEnumerable<ExchangeRateResponseDTO>? ExchangeRateResponseDTO { get; set; }
     }
 
+    [JsonObjectAttribute]
     public class ExchangeRateResponseDTO
     {
         public double CurrentChange { get; set; }
