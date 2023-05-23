@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Xml;
 using System.Xml.Linq;
 using System.Linq;
+using Clalit_Zeev.Helpers;
 
 namespace Clalit_Zeev.Services
 {
@@ -16,7 +17,7 @@ namespace Clalit_Zeev.Services
         {
             try
             {
-                var client = InitializeClient(url);
+                var client = CreateHttpClient.InitializeClient(url);
 
                 // Get data response
                 var response = await client.GetAsync(url);
@@ -65,26 +66,6 @@ namespace Clalit_Zeev.Services
             }
             catch (Exception ex)
             {
-            }
-        }
-
-        private HttpClient InitializeClient(string url)
-        {
-            try
-            {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(url);
-
-                // Add headers for JSON format.
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("text/xml"));
-
-                return client;
-
-            }
-            catch (Exception ex)
-            {
-                return null;
             }
         }
     }
