@@ -40,7 +40,7 @@ namespace Clalit_Zeev.Services
             }
         }
 
-        private List<ExchangeRateResponseDTO> ReturnNegativeChangeJson(
+        public List<ExchangeRateResponseDTO> ReturnNegativeChangeJson(
             string dataObjects)
         {
             try
