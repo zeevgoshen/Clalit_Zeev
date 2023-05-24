@@ -20,12 +20,7 @@ namespace Clalit_Zeev.Controllers
         [HttpGet(Name = "ExchangeRates")]
         public async Task<IEnumerable<ExchangeRateResponseDTO>> GetExchangeRates()
         {
-            var negativeRates = await service.GetExchangeRatesAsync();
-            if (negativeRates == null)
-            {
-                negativeRates = new List<ExchangeRateResponseDTO>();
-            }
-            return new List<ExchangeRateResponseDTO>(negativeRates);
+            return await service.GetExchangeRatesAsync();
         }
     }
 }

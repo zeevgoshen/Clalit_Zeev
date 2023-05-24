@@ -79,7 +79,6 @@ public class ExchangeRatesService_Tests
     [Fact]
     public void ReturnNegativeChangeJson_EXPECT_1_EXCHANGE_RECORD_SUCCESS()
     {
-        var filteredResults = new List<ExchangeRateResponseDTO>();
         var xmldoc = new XmlDocument();
         xmldoc.LoadXml(StaticTestData.xml1);
         

@@ -4,6 +4,6 @@ namespace Clalit_Zeev.Services
 {
     public interface IExchangeRatesService
     {
-        public Task<IEnumerable<ExchangeRateResponseDTO>?> GetExchangeRatesAsync();
+        public Task<List<ExchangeRateResponseDTO>?> GetExchangeRatesAsync();
     }
 }
