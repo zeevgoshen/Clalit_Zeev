@@ -23,3 +23,4 @@ Future todos:
 -------------
 1) custom exceptions
 2) cache
+3) mock api testing
