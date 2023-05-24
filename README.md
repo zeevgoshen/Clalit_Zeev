@@ -18,6 +18,7 @@ Client
 Server
 1. Use XmlSerilaizer for a more clear conversion.
 2. Change template to web api.
+3. n-Tier like structure even though this is a small project.
 
 
 Future todos:
