@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ExchangeRates from "./ExchangeRates";
+import ExchangeService from "../services/exchange_rates.service.js";
 import { HOME_TITLE } from "../constants/messages.js"
 
 export class Home extends Component {
@@ -16,9 +17,8 @@ export class Home extends Component {
     }
 
     async populateExchangeRateData() {
-        const response = await fetch('exchangerates');
-        const data = await response.json();
-        this.setState({ exchangerates: data, loading: false });
+        const response = await ExchangeService();
+        this.setState({ exchangerates: response, loading: false });
     }
 
 

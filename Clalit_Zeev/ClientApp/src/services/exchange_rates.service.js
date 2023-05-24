@@ -1,8 +1,6 @@
-﻿import { useState, useEffect } from "react";
-import axios from "axios";
-import { APIURL } from "../constants/messages.js";
+﻿import axios from "axios";
 
-export async function callExchangeRatesAPI() {
+export default function callExchangeRatesAPI() {
 
     const options = {
         headers: {
@@ -10,10 +8,7 @@ export async function callExchangeRatesAPI() {
         },
     };
 
-    alert();
-
-    await axios.get("exchangerates", options)
+    return axios.get("exchangerates", options)
         .then((response) => response.data)
         .catch((err) => console.log(err));
-
 }
