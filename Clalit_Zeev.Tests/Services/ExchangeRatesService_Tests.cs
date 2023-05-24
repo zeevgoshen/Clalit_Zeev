@@ -1,10 +1,7 @@
 using Clalit_Zeev.Controllers;
 using Clalit_Zeev.DTOs;
 using Clalit_Zeev.Helpers;
-using Clalit_Zeev.Services;
 using Clalit_Zeev.Tests.TestData;
-using Newtonsoft.Json;
-using System.Text.Json;
 using System.Xml;
 
 namespace Clalit_Zeev.Tests.Services;
@@ -20,19 +17,14 @@ public class ExchangeRatesService_Tests
 
         var listResults = XmlUtils.DeserializeData(xmldoc);
 
-        if (listResults == null)
-        {
-            Assert.NotNull(null);
-        }
-
-        var currentChange = listResults[0].CurrentChange;
-        var currentExchangeRate = listResults[0].CurrentExchangeRate;
-        var key = listResults[0].Key;
-        var lastUpdate = listResults[0].LastUpdate;
-        var unit = listResults[0].Unit;
+        var currentChange = listResults?[0].CurrentChange;
+        var currentExchangeRate = listResults?[0].CurrentExchangeRate;
+        var key = listResults?[0].Key;
+        var lastUpdate = listResults?[0].LastUpdate;
+        var unit = listResults?[0].Unit;
 
 
-        Assert.Equal(2, listResults.Count());
+        Assert.Equal(2, listResults?.Count());
         Assert.Equal("USD", key);
         Assert.Equal(0.5751848808545603944124897300, currentChange);
         Assert.Equal(3.672, currentExchangeRate);
@@ -50,12 +42,7 @@ public class ExchangeRatesService_Tests
 
         var listResults = XmlUtils.DeserializeData(xmldoc);
 
-        if (listResults == null)
-        {
-            Assert.NotNull(null);
-        }
-
-        var results = listResults.Where(x => x.CurrentChange < 0).ToList();
+        var results = listResults?.Where(x => x.CurrentChange < 0).ToList();
 
         Assert.Single(results);
     }
@@ -66,14 +53,7 @@ public class ExchangeRatesService_Tests
         var xmldoc = new XmlDocument();
         xmldoc.LoadXml(StaticTestData.xml1);
 
-        xmldoc = XmlUtils.CheckForSingleExchangeRateNode(xmldoc);
-
         var listResults = XmlUtils.DeserializeData(xmldoc);
-
-        if (listResults == null)
-        {
-            Assert.NotNull(null);
-        }
 
         Assert.Single(listResults);
     }

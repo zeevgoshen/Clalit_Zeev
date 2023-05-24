@@ -45,19 +45,10 @@ namespace Clalit_Zeev.Services
         private List<ExchangeRateResponseDTO> ReturnNegativeChangeJson(
             string dataObjects)
         {
-            
-            var filteredResults = new List<ExchangeRateResponseDTO>();
             var xmldoc = new XmlDocument();
             xmldoc.LoadXml(dataObjects);
 
-            xmldoc = XmlUtils.CheckForSingleExchangeRateNode(xmldoc);
-
             var listResults = XmlUtils.DeserializeData(xmldoc);
-
-            if (listResults == null)
-            {
-                return new List<ExchangeRateResponseDTO>();
-            }
 
             return listResults.Where(x => x.CurrentChange < 0).ToList();
         }
