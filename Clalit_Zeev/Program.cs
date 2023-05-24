@@ -1,4 +1,5 @@
 using Clalit_Zeev.Services;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IExchangeRatesService, ExchangeRatesService>();
+
+builder.Services.AddHttpClient("Clalit", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+    client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue("text/xml"));
+});
 
 var app = builder.Build();
 

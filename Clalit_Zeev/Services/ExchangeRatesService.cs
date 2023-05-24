@@ -1,25 +1,26 @@
 ﻿using Clalit_Zeev.DTOs;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
+using Newtonsoft.Json.Schema;
 using System.Xml;
-using System.Xml.Linq;
-using System.Linq;
-using Clalit_Zeev.Helpers;
 
 namespace Clalit_Zeev.Services
 {
     public class ExchangeRatesService : IExchangeRatesService
     {
-        private string url = "https://boi.org.il/PublicApi/GetExchangeRates?asXML=true";
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public ExchangeRatesService(IHttpClientFactory httpClientFactory) =>
+            _httpClientFactory = httpClientFactory;
 
         public async Task<IEnumerable<ExchangeRateResponseDTO>?> GetExchangeRatesAsync()
         {
             try
             {
-                var httpClient = CreateHttpClient.InitializeClient(url);
+                var httpClient = _httpClientFactory.CreateClient("Clalit");
 
                 // Get data response
-                var response = await httpClient.GetAsync(url);
+                var response = await httpClient.GetAsync("/PublicApi/GetExchangeRates?asXML=true");
+
                 var filteredResults = new List<ExchangeRateResponseDTO>();
 
                 if (response.IsSuccessStatusCode)
@@ -40,7 +41,7 @@ namespace Clalit_Zeev.Services
             }
         }
 
-        public List<ExchangeRateResponseDTO> ReturnNegativeChangeJson(
+        private List<ExchangeRateResponseDTO> ReturnNegativeChangeJson(
             string dataObjects)
         {
             try
@@ -49,24 +50,29 @@ namespace Clalit_Zeev.Services
                 var xmldoc = new XmlDocument();
                 xmldoc.LoadXml(dataObjects);
 
+                var exchangeRateResponse = xmldoc.GetElementsByTagName("ExchangeRateResponseDTO");
+
+                if (exchangeRateResponse.Count == 1)
+                {
+                    var attribute = xmldoc.CreateAttribute("json", "Array", "http://james.newtonking.com/projects/json");
+                    attribute.InnerText = "true";
+                    var node = exchangeRateResponse.Item(0) as XmlElement;
+                    node.Attributes.Append(attribute);
+                }
+
                 var elem = xmldoc?.DocumentElement?.ChildNodes[0];
                 var fromXml = JsonConvert.SerializeXmlNode(elem);
                 var fromJson = JsonConvert.
                     DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
 
                 if (fromJson != null &&
-                    fromJson.ExchangeRates != null)
+                    fromJson.ExchangeRates != null
+                    && fromJson.ExchangeRates.ExchangeRateResponseDTO != null)
                 {
-                    filteredResults.AddRange(
-                        from node in 
-                            fromJson?.
-                            ExchangeRates?.
-                            ExchangeRateResponseDTO
-                            where node.CurrentChange < 0
-                            select node);
+                    return fromJson.ExchangeRates.ExchangeRateResponseDTO
+                        .Where(x => x.CurrentChange < 0).ToList();
                 }
-
-                return filteredResults;
+                return new List<ExchangeRateResponseDTO>();
             }
             catch (Exception)
             {
