@@ -13,6 +13,7 @@ Client
 1. Home component change to functional component.
 2. API call results validation.
 3. Remove not in use Router files.
+4. Nicer UI (css)
 
 Server
 1. Use XmlSerilaizer for a more clear conversion.
