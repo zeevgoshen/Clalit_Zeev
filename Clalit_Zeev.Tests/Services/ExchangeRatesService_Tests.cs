@@ -1,5 +1,6 @@
 using Clalit_Zeev.Controllers;
 using Clalit_Zeev.DTOs;
+using Clalit_Zeev.Helpers;
 using Clalit_Zeev.Services;
 using Clalit_Zeev.Tests.TestData;
 using Newtonsoft.Json;
@@ -12,7 +13,6 @@ public class ExchangeRatesService_Tests
 {
     public List<ExchangeRateResponseDTO> DeserializeData(XmlDocument xmldoc)
     {
-
         var elem = xmldoc?.DocumentElement?.ChildNodes[0];
         var fromXml = JsonConvert.SerializeXmlNode(elem);
         var fromJson = JsonConvert.
@@ -74,7 +74,6 @@ public class ExchangeRatesService_Tests
         var results = listResults.Where(x => x.CurrentChange < 0).ToList();
 
         Assert.Single(results);
-
     }
 
     [Fact]
@@ -82,16 +81,8 @@ public class ExchangeRatesService_Tests
     {
         var xmldoc = new XmlDocument();
         xmldoc.LoadXml(StaticTestData.xml1);
-        
-        var exchangeRateResponse = xmldoc.GetElementsByTagName("ExchangeRateResponseDTO");
 
-        if (exchangeRateResponse.Count == 1)
-        {
-            var attribute = xmldoc.CreateAttribute("json", "Array", "http://james.newtonking.com/projects/json");
-            attribute.InnerText = "true";
-            var node = exchangeRateResponse.Item(0) as XmlElement;
-            node.Attributes.Append(attribute);
-        }
+        xmldoc = XmlUtils.CheckForSingleExchangeRateNode(xmldoc);
 
         var listResults = DeserializeData(xmldoc);
 
