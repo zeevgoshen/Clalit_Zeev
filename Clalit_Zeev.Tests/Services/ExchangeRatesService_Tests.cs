@@ -11,30 +11,14 @@ namespace Clalit_Zeev.Tests.Services;
 
 public class ExchangeRatesService_Tests
 {
-    public List<ExchangeRateResponseDTO> DeserializeData(XmlDocument xmldoc)
-    {
-        var elem = xmldoc?.DocumentElement?.ChildNodes[0];
-        var fromXml = JsonConvert.SerializeXmlNode(elem);
-        var fromJson = JsonConvert.
-            DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
-
-        if (fromJson == null ||
-            fromJson.ExchangeRates == null ||
-            fromJson.ExchangeRates.ExchangeRateResponseDTO == null)
-        {
-            return null;
-        }
-
-        return fromJson.ExchangeRates.ExchangeRateResponseDTO.ToList();
-    }
-
+    
     [Fact]
     public void ReturnNegativeChangeJson_PARSE_EXPECTED_XML_VALUES_SUCCESS()
     {
         var xmldoc = new XmlDocument();
         xmldoc.LoadXml(StaticTestData.xml2);
 
-        var listResults = DeserializeData(xmldoc);
+        var listResults = XmlUtils.DeserializeData(xmldoc);
 
         if (listResults == null)
         {
@@ -64,7 +48,7 @@ public class ExchangeRatesService_Tests
         var xmldoc = new XmlDocument();
         xmldoc.LoadXml(StaticTestData.xmlNegative);
 
-        var listResults = DeserializeData(xmldoc);
+        var listResults = XmlUtils.DeserializeData(xmldoc);
 
         if (listResults == null)
         {
@@ -84,7 +68,7 @@ public class ExchangeRatesService_Tests
 
         xmldoc = XmlUtils.CheckForSingleExchangeRateNode(xmldoc);
 
-        var listResults = DeserializeData(xmldoc);
+        var listResults = XmlUtils.DeserializeData(xmldoc);
 
         if (listResults == null)
         {

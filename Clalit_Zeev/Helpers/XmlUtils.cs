@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using Clalit_Zeev.DTOs;
+using Newtonsoft.Json;
+using System.Xml;
 
 namespace Clalit_Zeev.Helpers
 {
@@ -17,6 +19,23 @@ namespace Clalit_Zeev.Helpers
             }
 
             return xmldoc;
+        }
+
+        public static List<ExchangeRateResponseDTO> DeserializeData(XmlDocument xmldoc)
+        {
+            var elem = xmldoc?.DocumentElement?.ChildNodes[0];
+            var fromXml = JsonConvert.SerializeXmlNode(elem);
+            var fromJson = JsonConvert.
+                DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
+
+            if (fromJson == null ||
+                fromJson.ExchangeRates == null ||
+                fromJson.ExchangeRates.ExchangeRateResponseDTO == null)
+            {
+                return null;
+            }
+
+            return fromJson.ExchangeRates.ExchangeRateResponseDTO.ToList();
         }
     }
 }

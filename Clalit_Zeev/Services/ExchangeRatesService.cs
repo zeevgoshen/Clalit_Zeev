@@ -1,4 +1,5 @@
 ﻿using Clalit_Zeev.DTOs;
+using Clalit_Zeev.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using System.Xml;
@@ -49,29 +50,16 @@ namespace Clalit_Zeev.Services
             var xmldoc = new XmlDocument();
             xmldoc.LoadXml(dataObjects);
 
-            var exchangeRateResponse = xmldoc.GetElementsByTagName("ExchangeRateResponseDTO");
+            xmldoc = XmlUtils.CheckForSingleExchangeRateNode(xmldoc);
 
-            if (exchangeRateResponse.Count == 1)
+            var listResults = XmlUtils.DeserializeData(xmldoc);
+
+            if (listResults == null)
             {
-                var attribute = xmldoc.CreateAttribute("json", "Array", "http://james.newtonking.com/projects/json");
-                attribute.InnerText = "true";
-                var node = exchangeRateResponse.Item(0) as XmlElement;
-                node.Attributes.Append(attribute);
+                return new List<ExchangeRateResponseDTO>();
             }
 
-            var elem = xmldoc?.DocumentElement?.ChildNodes[0];
-            var fromXml = JsonConvert.SerializeXmlNode(elem);
-            var fromJson = JsonConvert.
-                DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
-
-            if (fromJson != null &&
-                fromJson.ExchangeRates != null
-                && fromJson.ExchangeRates.ExchangeRateResponseDTO != null)
-            {
-                return fromJson.ExchangeRates.ExchangeRateResponseDTO
-                    .Where(x => x.CurrentChange < 0).ToList();
-            }
-            return new List<ExchangeRateResponseDTO>();
+            return listResults.Where(x => x.CurrentChange < 0).ToList();
         }
     }
 }
