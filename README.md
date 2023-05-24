@@ -13,7 +13,8 @@ Client
 1. Home component change to functional component (call the service from useEffect)
 2. API call results validation.
 3. Remove not in use Router files.
-4. Nicer UI (css)
+4. Nicer UI (css).
+5. API url should be in process.env.REACT_APP file.
 
 Server
 1. Use XmlSerilaizer for a more clear conversion.
