@@ -10,8 +10,9 @@ General notes:
 There are several things I wanted to do but due to time constraints didn't make it.
 
 Client
-1. Home controller change to functional component.
-2. API result validation.
+1. Home component change to functional component.
+2. API call results validation.
+3. Remove not in use Router files.
 
 Server
 1. Use XmlSerilaizer for a more clear conversion.
