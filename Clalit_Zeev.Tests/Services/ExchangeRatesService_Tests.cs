@@ -10,12 +10,8 @@ namespace Clalit_Zeev.Tests.Services;
 
 public class ExchangeRatesService_Tests
 {
-
-    [Fact]
-    public void ReturnNegativeChangeJson_PARSE_EXPECTED_XML_VALUES_SUCCESS()
+    public List<ExchangeRateResponseDTO> DeserializeData(XmlDocument xmldoc)
     {
-        var xmldoc = new XmlDocument();
-        xmldoc.LoadXml(StaticTestData.xml2);
 
         var elem = xmldoc?.DocumentElement?.ChildNodes[0];
         var fromXml = JsonConvert.SerializeXmlNode(elem);
@@ -26,11 +22,24 @@ public class ExchangeRatesService_Tests
             fromJson.ExchangeRates == null ||
             fromJson.ExchangeRates.ExchangeRateResponseDTO == null)
         {
-            // fail assertion on purpose
-            Assert.NotNull(null);
+            return null;
         }
 
-        var listResults = fromJson.ExchangeRates.ExchangeRateResponseDTO.ToList();
+        return fromJson.ExchangeRates.ExchangeRateResponseDTO.ToList();
+    }
+
+    [Fact]
+    public void ReturnNegativeChangeJson_PARSE_EXPECTED_XML_VALUES_SUCCESS()
+    {
+        var xmldoc = new XmlDocument();
+        xmldoc.LoadXml(StaticTestData.xml2);
+
+        var listResults = DeserializeData(xmldoc);
+
+        if (listResults == null)
+        {
+            Assert.NotNull(null);
+        }
 
         var currentChange = listResults[0].CurrentChange;
         var currentExchangeRate = listResults[0].CurrentExchangeRate;
@@ -39,7 +48,7 @@ public class ExchangeRatesService_Tests
         var unit = listResults[0].Unit;
 
 
-        Assert.Equal(2, fromJson.ExchangeRates.ExchangeRateResponseDTO.Count());
+        Assert.Equal(2, listResults.Count());
         Assert.Equal("USD", key);
         Assert.Equal(0.5751848808545603944124897300, currentChange);
         Assert.Equal(3.672, currentExchangeRate);
@@ -55,20 +64,12 @@ public class ExchangeRatesService_Tests
         var xmldoc = new XmlDocument();
         xmldoc.LoadXml(StaticTestData.xmlNegative);
 
-        var elem = xmldoc?.DocumentElement?.ChildNodes[0];
-        var fromXml = JsonConvert.SerializeXmlNode(elem);
-        var fromJson = JsonConvert.
-            DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
+        var listResults = DeserializeData(xmldoc);
 
-        if (fromJson == null ||
-            fromJson.ExchangeRates == null ||
-            fromJson.ExchangeRates.ExchangeRateResponseDTO == null)
+        if (listResults == null)
         {
-            // fail assertion on purpose
             Assert.NotNull(null);
         }
-
-        var listResults = fromJson.ExchangeRates.ExchangeRateResponseDTO.ToList();
 
         var results = listResults.Where(x => x.CurrentChange < 0).ToList();
 
@@ -92,23 +93,13 @@ public class ExchangeRatesService_Tests
             node.Attributes.Append(attribute);
         }
 
-        var elem = xmldoc?.DocumentElement?.ChildNodes[0];
-        var fromXml = JsonConvert.SerializeXmlNode(elem);
-        var fromJson = JsonConvert.
-            DeserializeObject<ExchangeRatesResponseCollectioDTO>(fromXml);
-        
+        var listResults = DeserializeData(xmldoc);
 
-        if (fromJson == null ||
-            fromJson.ExchangeRates == null ||
-            fromJson.ExchangeRates.ExchangeRateResponseDTO == null)
+        if (listResults == null)
         {
-            // fail assertion on purpose
             Assert.NotNull(null);
         }
 
-        var listResults = fromJson.ExchangeRates.ExchangeRateResponseDTO.ToList();
-
         Assert.Single(listResults);
-
     }
 }
