@@ -11,15 +11,12 @@ There are several things I wanted to do but due to time constraints didn't make 
 
 Client
 1. Home component change to functional component (call the service from useEffect)
-2. API call results validation.
-3. Nicer UI (css).
-4. API url should be in process.env.REACT_APP file.
-5. No negative exchange rates message.
+2. Nicer UI (css).
+3. API url should be in process.env.REACT_APP file.
 
 Server
 1. Use XmlSerilaizer and LinQ to Xml.
-2. Change template to web api.
-3. n-Tier like structure even though this is a small project.
+2. n-Tier like structure even though this is a small project.
 
 
 Future todos:
