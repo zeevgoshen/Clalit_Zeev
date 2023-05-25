@@ -12,15 +12,14 @@ There are several things I wanted to do but due to time constraints didn't make 
 Client
 1. Home component change to functional component (call the service from useEffect)
 2. API call results validation.
-3. Remove not in use Router files.
-4. Nicer UI (css).
-5. API url should be in process.env.REACT_APP file.
+3. Nicer UI (css).
+4. API url should be in process.env.REACT_APP file.
+5. No negative exchange rates message.
 
 Server
-1. Use XmlSerilaizer for a more clear conversion.
+1. Use XmlSerilaizer and LinQ to Xml.
 2. Change template to web api.
 3. n-Tier like structure even though this is a small project.
-4. Re-arrange test setup code to avoid duplication.
 
 
 Future todos:
