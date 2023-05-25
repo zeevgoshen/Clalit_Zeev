@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ExchangeRates from "./ExchangeRates";
 import ExchangeService from "../services/exchange_rates.service.js";
-import { HOME_TITLE } from "../constants/messages.js"
+import { HOME_TITLE, NO_RESULTS } from "../constants/messages.js"
 
 export class Home extends Component {
     static displayName = HOME_TITLE;
@@ -35,15 +35,18 @@ export class Home extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {exchangerates.map(exchangerate =>
-                        <tr key={exchangerate.key}>
-                            <td>{exchangerate.currentChange}</td>
-                            <td>{exchangerate.currentExchangeRate}</td>
-                            <td>{exchangerate.key}</td>
-                            <td>{exchangerate.lastUpdate}</td>
-                            <td>{exchangerate.unit}</td>
-                        </tr>
-                    )}
+                    {exchangerates.length === 0 ?
+                        (<tr><td colSpan="5">{NO_RESULTS}</td></tr>) :
+                        (exchangerates.map(exchangerate =>
+                            <tr key={exchangerate.key}>
+                                <td>{exchangerate.currentChange}</td>
+                                <td>{exchangerate.currentExchangeRate}</td>
+                                <td>{exchangerate.key}</td>
+                                <td>{exchangerate.lastUpdate}</td>
+                                <td>{exchangerate.unit}</td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
         );
