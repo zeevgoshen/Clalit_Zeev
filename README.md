@@ -10,7 +10,7 @@ General notes:
 There are several things I wanted to do but due to time constraints didn't make it.
 
 Client
-Nicer UI (css).
+1. Nicer UI (css).
 
 Server
 1. Use XmlSerilaizer and LinQ to Xml.
