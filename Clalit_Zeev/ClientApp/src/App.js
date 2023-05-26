@@ -1,17 +1,9 @@
-import React, { Component } from 'react';
-import { Layout } from './components/Layout';
-import './custom.css';
-import { HOME_TITLE } from "./constants/messages.js"
-import Home from './components/Home';
+import React from 'react';
+import Layout from './components/Layout';
 
-export default class App extends Component {
-    static displayName = HOME_TITLE;
+export default function App() {
 
-  render() {
-      return (
-          <Layout>
-              <Home />
-            </Layout>
+    return (
+        <Layout />
     );
-  }
 }

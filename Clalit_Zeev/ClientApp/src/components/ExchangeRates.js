@@ -1,7 +1,8 @@
-﻿import React, { useMemo, useState, useEffect } from "react";
-import "./ExchangeRates.css";
+﻿import React, {  useState, useEffect } from "react";
 import ExchangeService from "../services/exchange_rates.service.js";
-import { HOME_TITLE, NO_RESULTS } from "../constants/messages.js"
+import { NO_RESULTS } from "../constants/messages.js"
+import "./ExchangeRates.css";
+
 
 export default function ExchangeRates() {
 

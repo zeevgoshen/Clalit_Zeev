@@ -1,7 +1,5 @@
 ﻿using Clalit_Zeev.DTOs;
 using Clalit_Zeev.Helpers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
 using System.Xml;
 
 namespace Clalit_Zeev.Services
@@ -50,7 +48,7 @@ namespace Clalit_Zeev.Services
 
             var listResults = XmlUtils.DeserializeData(xmldoc);
 
-            return listResults.Where(x => x.CurrentChange < 0).ToList();
+            return listResults = listResults.Where(x => x.CurrentChange < 0).ToList();
         }
     }
 }
