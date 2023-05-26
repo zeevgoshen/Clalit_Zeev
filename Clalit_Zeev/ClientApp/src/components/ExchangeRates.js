@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect } from "react";
 import ExchangeService from "../services/exchange_rates.service.js";
-import { NO_RESULTS } from "../constants/messages.js"
+import { NO_RESULTS, LOADING } from "../constants/messages.js"
 import "./ExchangeRates.css";
 
 
@@ -15,7 +15,7 @@ export default function ExchangeRates() {
 
     return (
         exchangerates.loading ?
-            (<p><em>Loading...</em></p>) :
+            (<p><em>{LOADING}</em></p>) :
             (<table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
