@@ -10,9 +10,7 @@ General notes:
 There are several things I wanted to do but due to time constraints didn't make it.
 
 Client
-1. Home component change to functional component (call the service from useEffect)
-2. Nicer UI (css).
-3. API url should be in process.env.REACT_APP file.
+Nicer UI (css).
 
 Server
 1. Use XmlSerilaizer and LinQ to Xml.
