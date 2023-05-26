@@ -1,6 +1,6 @@
 ﻿import axios from "axios";
 
-export default function callExchangeRatesAPI() {
+export default async function callExchangeRatesAPI() {
 
     const options = {
         headers: {
@@ -8,7 +8,7 @@ export default function callExchangeRatesAPI() {
         },
     };
 
-    return axios.get("exchangerates", options)
+    return await axios.get("exchangerates", options)
         .then((response) => response.data)
         .catch((err) => console.log(err));
 }
