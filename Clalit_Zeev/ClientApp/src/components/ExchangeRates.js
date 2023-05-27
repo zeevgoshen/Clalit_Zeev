@@ -43,7 +43,7 @@ export default function ExchangeRates() {
                                 <td>{exchangerate.lastUpdate}</td>
                                 <td>{exchangerate.unit}</td>
                             </tr>
-                        ).sort(order))
+                        ))
                     }
                 </tbody>
             </table>)
