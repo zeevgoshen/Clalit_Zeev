@@ -22,7 +22,7 @@ export default function ExchangeRates() {
     return (
         exchangerates.loading ?
             (<p><em>{LOADING}</em></p>) :
-            (<table className='table table-striped' aria-labelledby="tabelLabel">
+            (<table className='table table-striped'>
                 <thead>
                     <tr>
                         <th>Current Change</th>
