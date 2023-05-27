@@ -4,6 +4,11 @@ import { NO_RESULTS, LOADING } from "../constants/messages.js"
 import "./ExchangeRates.css";
 
 
+const order = (a, b) => {
+    return b.currentChange < a.currentChange ? -1 : (a.currentChange > b.currentChange ? 0 : 1);
+}
+
+
 export default function ExchangeRates() {
 
     const [exchangerates, setExchangeRates] = useState({ loading: true });
@@ -13,9 +18,6 @@ export default function ExchangeRates() {
             setExchangeRates({ response, loading: false }));
     }, []);
 
-    const order = (a, b) => {
-        return b.currentChange < a.currentChange ? -1 : (a.currentChange > b.currentChange ? 0 : 1);
-    }
 
     return (
         exchangerates.loading ?
