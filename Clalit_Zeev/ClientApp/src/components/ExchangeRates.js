@@ -13,6 +13,10 @@ export default function ExchangeRates() {
             setExchangeRates({ response, loading: false }));
     }, []);
 
+    const order = (a, b) => {
+        return b.currentChange < a.currentChange ? -1 : (a.currentChange > b.currentChange ? 0 : 1);
+    }
+
     return (
         exchangerates.loading ?
             (<p><em>{LOADING}</em></p>) :
@@ -27,9 +31,9 @@ export default function ExchangeRates() {
                     </tr>
                 </thead>
                 <tbody>
-                    {exchangerates.response?.length === 0 ?
+                    {!exchangerates.response?.length ?
                         (<tr><td colSpan="5">{NO_RESULTS}</td></tr>) :
-                        (exchangerates.response?.map(exchangerate =>
+                        (exchangerates.response.sort(order).map(exchangerate =>
                             <tr key={exchangerate.key}>
                                 <td>{exchangerate.currentChange}</td>
                                 <td>{exchangerate.currentExchangeRate}</td>
@@ -37,7 +41,7 @@ export default function ExchangeRates() {
                                 <td>{exchangerate.lastUpdate}</td>
                                 <td>{exchangerate.unit}</td>
                             </tr>
-                        ))
+                        ).sort(order))
                     }
                 </tbody>
             </table>)
