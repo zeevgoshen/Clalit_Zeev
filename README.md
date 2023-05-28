@@ -15,6 +15,7 @@ Client
 Server
 1. Use XmlSerilaizer and LinQ to Xml.
 2. n-Tier like structure even though this is a small project.
+3. Move hard-coded strings such as partial api url to a separate constants file. 
 
 
 Future todos:
